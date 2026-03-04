@@ -3,225 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Bitcoin Mining Master - Mine Bitcoin from your phone. Available on iOS and Android." />
-  <title>Bitcoin Mining Master – Download</title>
+  <title>Bitcoin Mining Master – Legal</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-      background: #0a0a0f;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* Animated background glow */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -40%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(247,147,26,0.18) 0%, transparent 70%);
-      pointer-events: none;
-      animation: pulse 6s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
-      50%       { opacity: 1;   transform: translateX(-50%) scale(1.12); }
-    }
-
-    .card {
-      position: relative;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 28px;
-      padding: 52px 40px 44px;
-      max-width: 400px;
-      width: calc(100% - 32px);
       text-align: center;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+      padding: 24px;
     }
-
-    .icon {
-      width: 88px;
-      height: 88px;
-      border-radius: 22px;
-      background: linear-gradient(145deg, #f7931a, #e87722);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 24px;
-      font-size: 44px;
-      box-shadow: 0 12px 32px rgba(247,147,26,0.4);
-    }
-
-    h1 {
-      font-size: 24px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.3px;
-      margin-bottom: 8px;
-    }
-
-    .tagline {
-      font-size: 14px;
-      color: rgba(255,255,255,0.45);
-      margin-bottom: 36px;
-      line-height: 1.5;
-    }
-
-    /* Auto-redirect banner */
-    .redirect-bar {
-      display: none;
-      background: rgba(247,147,26,0.12);
-      border: 1px solid rgba(247,147,26,0.3);
-      border-radius: 10px;
-      padding: 10px 16px;
-      margin-bottom: 24px;
-      font-size: 13px;
-      color: #f7931a;
-    }
-    .redirect-bar.visible { display: flex; align-items: center; gap: 8px; justify-content: center; }
-
-    .divider {
-      font-size: 12px;
-      color: rgba(255,255,255,0.25);
-      margin-bottom: 16px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      width: 100%;
-      padding: 17px 20px;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 600;
+    .icon { font-size: 56px; margin-bottom: 16px; }
+    h1 { font-size: 26px; font-weight: 700; color: #FF9800; margin-bottom: 8px; }
+    p { font-size: 14px; color: #888; margin-bottom: 36px; }
+    .links { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 320px; }
+    a {
+      display: block;
+      padding: 16px;
+      background: #1a1a1a;
+      border: 1px solid #FF9800;
+      border-radius: 12px;
+      color: #FF9800;
       text-decoration: none;
-      margin-bottom: 12px;
-      transition: transform 0.13s ease, box-shadow 0.13s ease, opacity 0.13s;
-      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: background 0.2s;
     }
-    .btn:last-child { margin-bottom: 0; }
-    .btn:active { transform: scale(0.97); opacity: 0.88; }
-
-    .btn-ios {
-      background: #fff;
-      color: #000;
-      box-shadow: 0 4px 20px rgba(255,255,255,0.1);
-    }
-    .btn-ios:hover { box-shadow: 0 6px 28px rgba(255,255,255,0.18); transform: translateY(-1px); }
-
-    .btn-android {
-      background: linear-gradient(135deg, #01875f, #00a572);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(1,135,95,0.3);
-    }
-    .btn-android:hover { box-shadow: 0 6px 28px rgba(1,135,95,0.45); transform: translateY(-1px); }
-
-    .btn-label { display: flex; flex-direction: column; align-items: flex-start; }
-    .btn-sub   { font-size: 11px; font-weight: 400; opacity: 0.7; }
-    .btn-main  { font-size: 16px; font-weight: 700; line-height: 1.2; }
-
-    .footer {
-      margin-top: 32px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.2);
-    }
-
-    /* Spinner for auto-redirect */
-    .spinner {
-      width: 14px;
-      height: 14px;
-      border: 2px solid rgba(247,147,26,0.3);
-      border-top-color: #f7931a;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      flex-shrink: 0;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    a:hover { background: #2a1a00; }
   </style>
 </head>
 <body>
-
-<div class="card">
   <div class="icon">₿</div>
   <h1>Bitcoin Mining Master</h1>
-  <p class="tagline">Mine Bitcoin directly from your phone.<br/>Simple, free, and always running.</p>
-
-  <div class="redirect-bar" id="redirectBar">
-    <div class="spinner"></div>
-    <span id="redirectMsg">Detecting your device...</span>
+  <p>Legal Documents</p>
+  <div class="links">
+    <a href="terms-of-service.html">📄 Terms of Service</a>
+    <a href="privacy-policy.html">🔒 Privacy Policy</a>
   </div>
-
-  <p class="divider">Choose your platform</p>
-
-  <a class="btn btn-ios" href="https://apps.apple.com/app/id000000000" id="iosBtn">
-    <!-- Apple logo -->
-    <svg width="26" height="26" viewBox="0 0 14 16.8" fill="black">
-      <path d="M13.3 12.3c-.3.7-.6 1.3-1 1.8-.5.7-.9 1.2-1.4 1.4-.5.2-1.1.3-1.6.1-.4-.1-.9-.3-1.3-.3s-.9.2-1.4.3c-.6.2-1.1.1-1.6-.1-.5-.2-1-.7-1.5-1.5C2.3 13 1.8 11.6 1.5 10c-.3-1.7-.2-3.2.4-4.4.4-.9 1-1.6 1.8-2 .7-.4 1.5-.6 2.3-.6.5 0 1 .2 1.6.4.5.2.9.4 1.1.4.2 0 .7-.2 1.2-.4.6-.2 1.1-.4 1.7-.3 1.4.1 2.4.7 3 1.8-1.2.7-1.8 1.8-1.7 3.1.1 1 .5 1.9 1.4 2.3zM9.5 1c.1.8-.2 1.6-.7 2.2-.5.6-1.2 1-1.9 1-.1-.8.2-1.5.7-2.1C8.1 1.5 8.8 1.1 9.5 1z"/>
-    </svg>
-    <div class="btn-label">
-      <span class="btn-sub">Download on the</span>
-      <span class="btn-main">App Store</span>
-    </div>
-  </a>
-
-  <a class="btn btn-android" href="https://play.google.com/store/apps/details?id=com.example.bitcoin_mining_master" id="androidBtn">
-    <!-- Google Play logo -->
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-      <path d="M3.18 23.76c.3.17.64.22.99.14l11.29-6.52-2.47-2.47-9.81 8.85zM.89 1.43C.34 1.76 0 2.36 0 3.09v17.82c0 .73.34 1.33.89 1.66l.1.06 9.98-9.98v-.23L.99 1.37l-.1.06zM20.56 10.51l-2.84-1.64-2.77 2.77 2.77 2.77 2.87-1.66c.82-.47.82-1.77-.03-2.24zM3.18.24l11.29 6.52-2.47 2.47L2.19.38l.99-.14z"/>
-    </svg>
-    <div class="btn-label">
-      <span class="btn-sub">Get it on</span>
-      <span class="btn-main">Google Play</span>
-    </div>
-  </a>
-
-  <p class="footer">© 2026 Bitcoin Mining Master · <a href="mailto:support@smartearningtool.top" style="color:inherit;">Contact</a></p>
-</div>
-
-<script>
-  // ── Store URLs ──────────────────────────────────────────────────────────────
-  var IOS_URL     = 'https://apps.apple.com/app/id000000000';
-  var ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.example.bitcoin_mining_master';
-
-  // ── Device detection ────────────────────────────────────────────────────────
-  var ua        = navigator.userAgent.toLowerCase();
-  var isIOS     = /iphone|ipad|ipod/.test(ua);
-  var isAndroid = /android/.test(ua);
-
-  var bar = document.getElementById('redirectBar');
-  var msg = document.getElementById('redirectMsg');
-
-  if (isIOS) {
-    bar.classList.add('visible');
-    msg.textContent = 'Opening App Store in 2 seconds…';
-    document.getElementById('iosBtn').href = IOS_URL;
-    setTimeout(function() { window.location.href = IOS_URL; }, 2000);
-  } else if (isAndroid) {
-    bar.classList.add('visible');
-    msg.textContent = 'Opening Google Play in 2 seconds…';
-    document.getElementById('androidBtn').href = ANDROID_URL;
-    setTimeout(function() { window.location.href = ANDROID_URL; }, 2000);
-  }
-
-  // Always update both buttons with correct URLs
-  document.getElementById('iosBtn').href     = IOS_URL;
-  document.getElementById('androidBtn').href = ANDROID_URL;
-</script>
 </body>
 </html>
