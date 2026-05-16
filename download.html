@@ -153,6 +153,51 @@
       flex-shrink: 0;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* WeChat open-in-browser guide */
+    .wechat-guide {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 1000;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 16px 20px 0;
+    }
+    .wechat-guide.visible { display: flex; }
+    .wechat-guide-arrow {
+      font-size: 52px;
+      line-height: 1;
+      animation: arrowBounce 1s ease-in-out infinite;
+      margin-right: 4px;
+    }
+    @keyframes arrowBounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-12px); }
+    }
+    .wechat-guide-box {
+      width: 100%;
+      text-align: center;
+      margin-top: 32px;
+    }
+    .wechat-guide-title {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .wechat-guide-sub {
+      color: rgba(255,255,255,0.55);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .wechat-guide-tap {
+      color: rgba(255,255,255,0.35);
+      font-size: 13px;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
@@ -196,11 +241,20 @@
   </p>
 </div>
 
+<!-- WeChat open-in-browser guide overlay -->
+<div class="wechat-guide" id="wechatGuide" onclick="this.classList.remove('visible')">
+  <div class="wechat-guide-arrow">↑</div>
+  <div class="wechat-guide-box">
+    <p class="wechat-guide-title">点击右上角 <strong>···</strong><br/>选择「在浏览器中打开」</p>
+    <p class="wechat-guide-sub">在 Safari 浏览器中打开<br/>即可自动跳转到 App Store 下载</p>
+    <p class="wechat-guide-tap">点击任意位置关闭</p>
+  </div>
+</div>
+
 <script>
-  // ── 上架后替换这两个链接 ──────────────────────────────────────────────────
-  var IOS_URL     = 'https://apps.apple.com/us/app/bitcoin-mining-master-crypto/id6760924051';
-  var ANDROID_URL = 'https://play.google.com/store/apps/details?id=com.cloudminingtool.bitcoin_mining_app';
-  // ─────────────────────────────────────────────────────────────────────────
+  var IOS_URL      = 'https://apps.apple.com/us/app/bitcoin-mining-master-crypto/id6760924051';
+  var IOS_SCHEME   = 'itms-apps://itunes.apple.com/app/id6760924051';
+  var ANDROID_URL  = 'https://play.google.com/store/apps/details?id=com.cloudminingtool.bitcoin_mining_app';
 
   document.getElementById('iosBtn').href     = IOS_URL;
   document.getElementById('androidBtn').href = ANDROID_URL;
@@ -208,14 +262,24 @@
   var ua        = navigator.userAgent.toLowerCase();
   var isIOS     = /iphone|ipad|ipod/.test(ua);
   var isAndroid = /android/.test(ua);
+  var isWeChat  = /micromessenger/.test(ua);
 
   var bar = document.getElementById('redirectBar');
   var msg = document.getElementById('redirectMsg');
 
   if (isIOS) {
     bar.classList.add('visible');
-    msg.textContent = 'Opening App Store in 2 seconds…';
-    setTimeout(function() { window.location.href = IOS_URL; }, 2000);
+    if (isWeChat) {
+      // 微信内置浏览器屏蔽 App Store 跳转，引导用户用外部浏览器打开
+      msg.textContent = '请在浏览器中打开以跳转 App Store';
+      setTimeout(function() {
+        document.getElementById('wechatGuide').classList.add('visible');
+      }, 600);
+    } else {
+      // 普通浏览器：使用 itms-apps:// 协议直接唤起 App Store
+      msg.textContent = 'Opening App Store in 2 seconds…';
+      setTimeout(function() { window.location.href = IOS_SCHEME; }, 2000);
+    }
   } else if (isAndroid) {
     bar.classList.add('visible');
     msg.textContent = 'Opening Google Play in 2 seconds…';
